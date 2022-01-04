@@ -56,7 +56,7 @@ public class MyList {
         }
     }
 
-    //(2) Tìm kiếm bằng tên
+    //(2) tim node co ten ung voi ten truyen vao
     Node searchByName(String xName) {
         Node p = head;
         while (p != null) {
@@ -82,7 +82,7 @@ public class MyList {
         return (null);
     }
 
-    //(3) Thêm phần tử có nội dung vào đầu 
+    //(3) Them 1 phan tu vao dau linkedlist 
     void addFirst(Person x) {
         head = new Node(x, head);
         if (tail == null) {
@@ -110,6 +110,7 @@ public class MyList {
             addFirst(x);
             return;
         }
+        //tim node f truoc node q
         Node f = head;
         while (f != null && f.next != q) {            
             f = f.next;
@@ -118,7 +119,7 @@ public class MyList {
             insertAfter(f, x);
         }
     }
-    //(6)Xóa nút đầu tiên
+    //(6)Xoa node dau tien trong list
     void removeFirst(){
         if (isEmpty()) {
             return;
@@ -128,7 +129,7 @@ public class MyList {
             tail = null;
         }
     }
-    //Xóa nút tạo từ q
+    //xoa node q trong list
     void remove(Node q)
      {
          if (isEmpty() || q==null) {
@@ -143,12 +144,155 @@ public class MyList {
              f = f.next;
          }
          if (f == null) {
-             return;
+             return;//q is not in the list
          }
-         Node q1 = q.next;//giữ địa chỉ phần tử phía sau q bằng q1
+         Node q1 = q.next;//xoa node tail
          f.next = q1;
          if(f.next == null){
              tail = f;
          }
      }
+    // Xoa node ung voi ten truyen vao
+    void remove(String xName) {
+        remove(searchByName(xName));
+    }
+
+    // Xoa node ung voi tuoi truyen vao
+    void remove(int xAge) {
+        remove(searchByAge(xAge));
+    }
+    
+    //Xoa tat ca ca node ten truyen vao
+    void removeAll(String xName) {
+        Node p;
+        while ((p = searchByName(xName)) != null) {
+            remove(p);
+        }
+    }
+
+    // Xoa tat ca cac node tuoi truyen vao
+    void removeAll(int xAge) {
+        Node p;
+        while ((p = searchByAge(xAge)) != null) {
+            remove(p);
+        }
+    }
+    
+    // tra ve node ung voi vi tri k truyen vao
+    Node pos(int k) {
+        int i = 0;
+        Node p = head;
+        while (p != null) {
+            if (i == k) {
+                return p;
+            }
+            i++;
+            p = p.next;
+        }
+        return (null);
+    }
+
+    // (17)
+    void removePos(int k) {
+        remove(pos(k));
+    }
+    //Sap xep node theo ten
+     void sortByName() {
+        Node pi, pj;
+        Person tmp;
+        pi = head;
+        while (pi != null) {
+            pj = pi.next;
+            while (pj != null) {
+                if (pi.info.name.compareTo(pj.info.name) > 0) {
+                    tmp = pi.info;
+                    pi.info = pj.info;
+                    pj.info = tmp;
+                }
+                pj = pj.next;
+            }
+            pi = pi.next;
+        }
+    }
+
+    // Sap xep node theo tuoi
+    void sortByAge() {
+        Node pi, pj;
+        Person tmp;
+        pi = head;
+        while (pi != null) {
+            pj = pi.next;
+            while (pj != null) {
+                if (pi.info.age > pj.info.age) {
+                    tmp = pi.info;
+                    pi.info = pj.info;
+                    pj.info = tmp;
+                }
+                pj = pj.next;
+            }
+            pi = pi.next;
+        }
+    }
+    
+    //tra ve kick thuoc cua linkedlist
+    int size() {
+        int count = 0;
+        Node p = head;
+        while (p != null) {
+            count++;
+            p = p.next;
+        }
+        return (count);
+    }
+
+    //chuyen list sang mang
+    Person[] toArray() {
+        int n, i;
+        n = size();
+        Person[] persons = new Person[n];
+        Node p = head;
+        i = 0;
+        while (p != null) {
+            persons[i++] = new Person(p.info.name, p.info.age);
+            p = p.next;
+        }
+        return (persons);
+    }
+    
+    //dao linkedlist
+     void reverse() {
+        MyList t = new MyList();
+        Node p = head;
+        while (p != null) {
+            t.addFirst(p.info);
+        }
+        head = t.head;
+        tail = t.tail;
+    }
+
+    // (23) 
+    Node findMaxAge() {
+        return (null);
+    }
+
+    // (24) 
+    Node findMinAge() {
+        return (null);
+    }
+
+    // (24) 
+    void setData(Node p, Person x) {
+        if (p != null) {
+            p.info = x;
+        }
+    }
+
+    // (26) 
+    void sortByAge(int k, int h) {
+    }
+
+    // (27) 
+    void reverse(int k, int h) // reverse from k to h 
+    {
+    }
 }
